@@ -1,0 +1,43 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: tweetqueuebinding
+spec:
+  type: bindings.azure.storagequeues
+  version: v1
+  metadata:
+  - name: storageAccount
+    value: "daprtwitterbot"
+  - name: storageAccessKey
+    secretKeyRef:
+      name: STORAGEACCESSKEY
+      key: STORAGEACCESSKEY
+  - name: queue
+    value: "tweets-queue"
+---
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: tweetsBinding
+spec:
+  type: bindings.twitter
+  version: v1
+  metadata:
+  - name: consumerKey
+    secretKeyRef:
+      name: consumerKey
+      key: consumerKey # twitter api consumer key, required
+  - name: consumerSecret
+    secretKeyRef:
+      name: consumerSecret
+      key: consumerSecret # twitter api consumer secret, required
+  - name: accessToken
+    secretKeyRef:
+      name: accessToken
+      key: accessToken # twitter api access token, required
+  - name: accessSecret
+    secretKeyRef:
+      name: accessSecret
+      key: accessSecret # twitter api access secret, required
+  - name: query
+    value: "#vangogh" # your search query, required
