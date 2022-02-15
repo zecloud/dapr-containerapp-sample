@@ -6,7 +6,7 @@ import os
 
 app = App()
 
-@app.binding('tweetsBinding')
+@app.binding('tweets-binding')
 def binding(request: BindingRequest):
     tweet=json.loads(request.text())
     jsonqueue={ "message": tweet}
@@ -15,4 +15,4 @@ def binding(request: BindingRequest):
     with DaprClient() as d:
         resp = d.invoke_binding('tweetqueuebinding', 'create', json.dumps(jsonqueue))
 
-app.run(host='0.0.0.0', port=os.getenv('PORT', '5000'))
+app.run(5000)

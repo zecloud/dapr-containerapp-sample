@@ -1,43 +1,32 @@
-apiVersion: dapr.io/v1alpha1
-kind: Component
-metadata:
-  name: tweetqueuebinding
-spec:
-  type: bindings.azure.storagequeues
-  version: v1
-  metadata:
-  - name: storageAccount
-    value: "daprtwitterbot"
-  - name: storageAccessKey
-    secretKeyRef:
-      name: STORAGEACCESSKEY
-      key: STORAGEACCESSKEY
-  - name: queue
-    value: "tweets-queue"
----
-apiVersion: dapr.io/v1alpha1
-kind: Component
-metadata:
-  name: tweetsBinding
-spec:
+# components.yaml for Azure Blob storage component
+- name: tweets-binding
   type: bindings.twitter
   version: v1
   metadata:
+  # Note that in a production scenario, account keys and secrets 
+  # should be securely stored. For more information, see
+  # https://docs.dapr.io/operations/components/component-secrets
   - name: consumerKey
-    secretKeyRef:
-      name: consumerKey
-      key: consumerKey # twitter api consumer key, required
+    secretRef: consumer-key # twitter api consumer key, required
   - name: consumerSecret
-    secretKeyRef:
-      name: consumerSecret
-      key: consumerSecret # twitter api consumer secret, required
+    secretRef: consumer-secret # twitter api consumer secret, required
   - name: accessToken
-    secretKeyRef:
-      name: accessToken
-      key: accessToken # twitter api access token, required
+    secretRef: access-token # twitter api access token, required
   - name: accessSecret
-    secretKeyRef:
-      name: accessSecret
-      key: accessSecret # twitter api access secret, required
+    secretRef: access-secret # twitter api access secret, required
   - name: query
-    value: "#vangogh" # your search query, required
+    value: "vangogh or impressionism" # your search query, required
+- name: tweetqueuebinding
+  type: bindings.azure.storagequeues
+  version: v1
+  metadata:
+  # Note that in a production scenario, account keys and secrets 
+  # should be securely stored. For more information, see
+  # https://docs.dapr.io/operations/components/component-secrets
+  - name: storageAccount
+    secretRef: storage-account-name
+  - name: storageAccessKey
+    secretRef: storage-account-key
+  - name: queue
+    value: "tweets-queue"
+
