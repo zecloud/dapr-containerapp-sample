@@ -15,7 +15,7 @@
   - name: accessSecret
     secretRef: access-secret # twitter api access secret, required
   - name: query
-    value: "vangogh or impressionism" # your search query, required
+    value: "#vangogh" # your search query, required
 - name: tweetqueuebinding
   type: bindings.azure.storagequeues
   version: v1

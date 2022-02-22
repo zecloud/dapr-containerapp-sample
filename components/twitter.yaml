@@ -1,0 +1,28 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: tweets-binding
+spec:
+  type: bindings.twitter
+  version: v1
+  metadata:
+  - name: consumerKey
+    secretKeyRef:
+      name: consumer-key
+      key: consumer-key # twitter api consumer key, required
+  - name: consumerSecret
+    secretKeyRef:
+      name: consumer-secret
+      key: consumer-secret # twitter api consumer secret, required
+  - name: accessToken
+    secretKeyRef:
+      name: access-token
+      key: access-token # twitter api access token, required
+  - name: accessSecret
+    secretKeyRef:
+      name: access-secret
+      key: access-secret # twitter api access secret, required
+  - name: query
+    value: "#vangogh" # your search query, required
+auth:
+  secretStore: my-secrets-store

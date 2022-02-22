@@ -1,0 +1,20 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: tweetqueuebinding
+spec:
+  type: bindings.azure.storagequeues
+  version: v1
+  metadata:
+  - name: storageAccount
+    secretKeyRef:
+      name: storage-account-name
+      key: storage-account-name
+  - name: storageAccessKey
+    secretKeyRef:
+      name: storage-account-key
+      key: storage-account-key
+  - name: queue
+    value: "tweets-queue"
+auth:
+  secretStore: my-secrets-store

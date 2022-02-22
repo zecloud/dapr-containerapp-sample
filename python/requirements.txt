@@ -1,0 +1,4 @@
+dapr
+dapr-ext-grpc
+tweepy
+Flask
