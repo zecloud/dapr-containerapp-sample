@@ -23,6 +23,7 @@ az storage account create \
 STORAGE_ACCOUNT_KEY=`az storage account keys list --resource-group $RESOURCE_GROUP --account-name $STORAGE_ACCOUNT --query '[0].value' --out tsv`
 az acr build -t $CONTAINER_IMAGE_NAME:latest -r $REGISTRY_SERVER ./dotnetc/
 az acr build -t $CONTAINER_IMAGE_NAME-follow:latest -r $REGISTRY_SERVER ./python/
+STORAGE_ACCOUNT_KEY=`az storage account keys list --resource-group $RESOURCE_GROUP --account-name $STORAGE_ACCOUNT --query '[0].value' --out tsv`
 REGISTRY_LOGIN_SERVER=`az acr show-endpoints --name $REGISTRY_SERVER --out tsv | tr -d '1[:space:]'`
 REGISTRY_USERNAME=`az acr credential show -n $REGISTRY_SERVER --query username --out tsv`
 REGISTRY_PASSWORD=`az acr credential show -n $REGISTRY_SERVER --query 'passwords[0].value' --out tsv`
@@ -65,8 +66,8 @@ az containerapp create \
   --memory 0.5Gi \
   --enable-dapr \
   --dapr-app-id twitterbot \
-  --dapr-components ../components.yaml \
-  --environment-variables "CONSUMERKEY=${CONSUMERKEY},CONSUMERSECRET=${CONSUMERSECRET},ACCESSTOKEN=${ACCESSTOKEN},ACCESSSECRET=${ACCESSSECRET}"\
-  --secrets "storage-account-name=${STORAGE_ACCOUNT},storage-account-key=${STORAGE_ACCOUNT_KEY},consumer-key=${CONSUMERKEY},consumer-secret=${CONSUMERSECRET},access-token=${ACCESSTOKEN},access-secret=${ACCESSSECRET}"
+  --dapr-components ./components.yaml \
+  --environment-variables "CONSUMERKEY=${CONSUMERKEYRL},CONSUMERSECRET=${CONSUMERSECRETRL},ACCESSTOKEN=${ACCESSTOKENRL},ACCESSSECRET=${ACCESSSECRETRL}"\
+  --secrets "storage-account-name=${STORAGE_ACCOUNT},storage-account-key=${STORAGE_ACCOUNT_KEY},consumer-key=${CONSUMERKEYRL},consumer-secret=${CONSUMERSECRETRL},access-token=${ACCESSTOKENRL},access-secret=${ACCESSSECRETRL}"
   
 

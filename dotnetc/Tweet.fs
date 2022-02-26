@@ -18,4 +18,5 @@ and user =
 and retweeted_status=
     {
         id_str: string
+        favorited : bool
     }

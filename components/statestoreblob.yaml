@@ -1,0 +1,21 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: blob-state-store
+  namespace: default
+spec:
+  type: state.azure.blobstorage
+  version: v1
+  metadata:
+  - name: accountName
+    secretKeyRef:
+      name: storage-account-name
+      key: storage-account-name
+  - name: accountKey
+    secretKeyRef:
+      name: storage-account-key
+      key: storage-account-key
+  - name: containerName
+    value: "gangoghfollowbot"
+auth:
+  secretStore: my-secrets-store

@@ -29,4 +29,23 @@
     secretRef: storage-account-key
   - name: queue
     value: "tweets-queue"
+  - name: ttlInSeconds
+    value: "36000"
+- name: blob-state-store
+  type: state.azure.blobstorage
+  version: v1
+  metadata:
+  - name: accountName
+    secretRef: storage-account-name
+  - name: accountKey
+    secretRef: storage-account-key
+  - name: containerName
+    value: "gangoghfollowbot"
+- name: resetfollow
+  type: bindings.cron
+  version: v1
+  metadata:
+  - name: schedule
+    value: "0 0 9 * * *" # valid cron schedule
+
 
