@@ -47,5 +47,11 @@
   metadata:
   - name: schedule
     value: "0 0 9 * * *" # valid cron schedule
+- name: unfollowtime
+  type: bindings.cron
+  version: v1
+  metadata:
+  - name: schedule
+    value: "0 0 0 * * *" # valid cron schedule
 
 
